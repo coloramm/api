@@ -4,10 +4,13 @@ using System.Net;
 using System;
 using API_Coloramm.Models.CustomCode;
 using API_Coloramm.Controllers.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace API_Coloramm.Controllers
 {
-    [Route("api/Coloramm")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ColorammController
     {
@@ -18,8 +21,15 @@ namespace API_Coloramm.Controllers
             this._colorammService = colorammService;
         }
 
+        /// <summary>
+        /// GetColor
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="app"></param>
+        /// <returns></returns>
         [HttpPost]
-        [Route("GetColor")]
+        [Route("Get_Color")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<IActionResult> GetColor([FromBody] ModelRequest request, bool app = false)
         {
             CustomHttpResponse result = null;
